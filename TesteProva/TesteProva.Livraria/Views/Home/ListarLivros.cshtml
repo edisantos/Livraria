@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TesteProva.Livraria.Models.Livros>
+@{
+    ViewBag.Title = "ListarLivros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <br /><br />
+    <div class="panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"> lista de livros</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+                            <label>Data</label>
+                        </th>
+                        <th>
+                            <label>Titulo</label>
+                        </th>
+                        <th>
+                            <label>Author</label>
+                        </th>
+                        <th>
+                            <label>Ano</label>
+                        </th>
+                        <th>
+                            <label>Exemplar</label>
+                        </th>
+                        <th>
+                            <label>Preço</label>
+                        </th>
+                        <th>
+                            <label>Categoria</label>
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(x => item.LivrosId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Data)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Titulo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Autor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Ano)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.ExemplarNumero)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Preco)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Categorias.Nome)
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,33 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+/*Configuração do formulario de registro*/
+.Formulario{
+	width:60%;
+	margin-left:25%;
+	border:1px solid;
+	padding:5%;
+    box-shadow:1px 2px 2px 1px #808080;
+	border-radius:10px 30px 10px 30px;
+}

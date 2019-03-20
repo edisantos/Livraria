@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "AreaAdmin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h3>Área Administrativa</h3>
+    <hr />
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="form-group">
+                <div class="img-rounded">
+                    <img src="~/Img/icon1.png" width="30%" />
+                </div>
+                @Html.ActionLink("Registro", "Registro", "Home")
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <div class="img-rounded">
+                    <img src="~/Img/icon2.png" width=30%" />
+                </div>
+                @Html.ActionLink("Lista", "ListaRegistrada", "Home")
+            </div>
+        </div>
+    </div>
+</div>
+

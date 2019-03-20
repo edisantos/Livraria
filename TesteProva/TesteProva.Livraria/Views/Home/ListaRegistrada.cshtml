@@ -1,0 +1,171 @@
+﻿@model IEnumerable<TesteProva.Livraria.Models.Livros>
+@{
+    ViewBag.Title = "ListaRegistrada";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <br /><br />
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-success">
+            <h3> @TempData["Msg"]</h3>
+        </div>
+    }
+    <br />
+    <div class="form-group">
+        @Html.ActionLink("Novo Registro", "Registro", "Home", null, new { @class= "lyphicon glyphicon-plus btn btn-success" })
+    </div>
+    <hr />
+    <div class="panel-primary">
+        <div class="panel-heading">
+
+            <div class="row">
+                <div class="col-sm-8">
+                    <h3 class="panel-title"> lista de livros Cadastrados</h3>
+                </div>
+                <div class="col-sm-4">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken();
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" name="search" placeholder="Procure pelo Titulo"/>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-search"> </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+                            <label>Data</label>
+                        </th>
+                        <th>
+                            <label>Titulo</label>
+                        </th>
+                        <th>
+                            <label>Author</label>
+                        </th>
+                        <th>
+                            <label>Ano</label>
+                        </th>
+                        <th>
+                            <label>Exemplar</label>
+                        </th>
+                        <th>
+                            <label>Preço</label>
+                        </th>
+                        <th>
+                            <label>Categoria</label>
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(x => item.LivrosId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Data)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Titulo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Autor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Ano)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.ExemplarNumero)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Preco)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Categorias.Nome)
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary editar" data-id="@item.LivrosId">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger excluir" data-id="@item.LivrosId">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<div id="modal" class="modal fade" role="dialog" />
+
+
+<!--Fim Modal-->
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@section scripts{
+    <script>
+        $(function () {
+            $(".editar").click(function () {
+                var id = $(this).attr("data-id");
+                  $("#modal").load("EditarLivro?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+            $(".excluir").click(function () {
+                var id = $(this).attr("data-id");
+                   $("#modal").load("ExcluirLivro?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+          
+           
+        })
+    </script>
+}
+@*<script>
+        $(function () {
+            $(".editar").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("EditarLivro?id=" + id, function () {
+                    $("#modal").modal('show');
+                })
+            });
+            $(".excluir").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modalExcluir").load("ExcluirLivro?id=" + id, function () {
+                    $("#modal").modal('show');
+                })
+            });
+        })
+
+    </script>*@
+
+
