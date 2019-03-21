@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,6 +36,7 @@ namespace TesteProva.Livraria.Models
         public decimal? Preco { get; set; }
         public int CategoriaId { get; set; }
 
+        [JsonIgnore]
         public virtual Categoria Categorias { get; set; }
     }
 }

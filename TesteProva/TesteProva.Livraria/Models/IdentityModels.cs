@@ -25,7 +25,7 @@ namespace TesteProva.Livraria.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-
+       
         /*Here my Dbset to create my table*/
         public DbSet<Livros> Livros { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
@@ -36,7 +36,11 @@ namespace TesteProva.Livraria.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
+
+
         }
+
+       
 
         public static ApplicationDbContext Create()
         {

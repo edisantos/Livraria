@@ -9,6 +9,9 @@ namespace TesteProva.Livraria
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+
+
         }
+
     }
 }

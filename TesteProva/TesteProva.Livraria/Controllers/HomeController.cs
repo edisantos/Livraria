@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Web.Mvc;
 using TesteProva.Livraria.Models;
 using System.Net;
+using System.Web.Script.Serialization;
 
 namespace TesteProva.Livraria.Controllers
 {
@@ -17,19 +18,23 @@ namespace TesteProva.Livraria.Controllers
         {
             return View();
         }
+        #region Metodos de listas
         //Here list all book
         //For this method get all books
         //Get - To List view
+        //GET HOME/ListarLivros
+        //public JsonResult ListarLivros()
+        //{
+        //    //Pegandos dados crescente por Titulo (OrderBy)
+        //    var listar = db.Livros.Include(x => x.Categorias).OrderBy(x => x.Titulo).ToList();
+        //    return Json(listar, JsonRequestBehavior.AllowGet);
+        //}
+
+        //O sistema deverá listar os livros ordenados de forma ascendente pelo título
         public ActionResult ListarLivros()
         {
-            var listar = db.Livros.Include(x => x.Categorias).OrderBy(x=>x.Titulo);
-            return View(listar.ToList());
-        }
-
-        [HttpPost]
-        public ActionResult ListaLivros(Livros livros)
-        {
-            return View();
+            var listar = db.Livros.Include(x => x.Categorias).OrderBy(x => x.Titulo).ToList();
+            return View(listar);
         }
         public ActionResult Home()
         {
@@ -44,15 +49,28 @@ namespace TesteProva.Livraria.Controllers
             return View();
         }
 
+        #endregion
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registro(Livros livros,string Titulo, int ExemplarNumero)
+        public ActionResult Registro(Livros livros,string Titulo, int ExemplarNumero,int CategoriaId)
         {
+            /*Requisitos Funcionais:-O sistema deverá listar os livros ordenados de forma ascendente pelo título; -O sistema deverá adicionar um novo livro; -O sistema deverá editar um livro; -O sistema deverá excluir um livro; -O sistema não deverá permitir inserir um livro com o mesmo título; -O sistema deverá permitir adicionar mais de um exemplar por livro; -O sistema não deverá permitir inserir o mesmo número de exemplar para livros diferente; -O sistema não deverá permitir inserir um exemplar com o mesmo número;*/
+             
+              /*Note: Acredito que apenas as duas verificações abaixo já atende as solicitações acima */
 
             if (ModelState.IsValid)
             {
-                var TSearch = db.Livros.Where(x => x.Titulo.Contains(Titulo)).FirstOrDefault();
+                //O sistema não deverá permitir inserir um livro com o mesmo título;
+                  /*Para este caso usei categoria como livro.
+                    Entao ao registrar a mesma categoria com mesmo titulo ira bloquear mostrando uma mensagem na tela(Popup Modal bootstrap)*/
+
+                var TSearch = db.Livros.Where(x => x.Titulo.Contains(Titulo) && x.CategoriaId == CategoriaId).FirstOrDefault();
+                /*Teste Ok*/
+
+                //O sistema não deverá permitir inserir um exemplar com o mesmo número;
+                /*Nesta verifição caso seja registrado um livro com o mesmo numero de exemplar o sistema fara o bloquio do registro e mostra uma mensam na tela para o usuário*/
                 var exl = db.Livros.Where(x => x.ExemplarNumero == ExemplarNumero).FirstOrDefault();
+                /*Teste Ok*/
                 if (TSearch == null)
                 {
                     if (exl == null)
@@ -70,7 +88,7 @@ namespace TesteProva.Livraria.Controllers
                 }
                 else
                 {
-                    TempData["Error"] = "Você não pode registrar um livro de mesmo titulo!";
+                    TempData["Error"] = "O Sistema não permiti inserir um livro(Categoria) com o mesmo titulo!";
                 }
                 
 
@@ -171,6 +189,8 @@ namespace TesteProva.Livraria.Controllers
         {
             return View();
         }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

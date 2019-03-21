@@ -3,7 +3,7 @@
     ViewBag.Title = "ListarLivros";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@*Usando o Angular nesta pagina*@
 <div class="container">
     <br /><br />
     <div class="panel-primary">
@@ -46,35 +46,51 @@
                         <tr>
                             <td>
                                 @Html.HiddenFor(x => item.LivrosId)
+                               
                             </td>
                             <td>
                                 @Html.DisplayFor(x => item.Data)
+                               
                             </td>
                             <td>
                                 @Html.DisplayFor(x => item.Titulo)
+                                
                             </td>
                             <td>
                                 @Html.DisplayFor(x => item.Autor)
+                               
                             </td>
                             <td>
                                 @Html.DisplayFor(x => item.Ano)
+                                
                             </td>
                             <td>
                                 @Html.DisplayFor(x => item.ExemplarNumero)
+                               
                             </td>
                             <td>
                                 @Html.DisplayFor(x => item.Preco)
+                                
                             </td>
                             <td>
                                 @Html.DisplayFor(x => item.Categorias.Nome)
+                               
                             </td>
                         </tr>
                     </tbody>
                 }
             </table>
         </div>
+        <div class="panel-footer">
+            <label>Total Registro(s)</label> :@Model.Count()
+        </div>
     </div>
 </div>
+@section scripts{
 
+    <script src="~/AppAngular/Livros/Module.js"></script>
+    <script src="~/AppAngular/Livros/Services.js"></script>
+    <script src="~/AppAngular/Livros/Controller.js"></script>
+}
 
 

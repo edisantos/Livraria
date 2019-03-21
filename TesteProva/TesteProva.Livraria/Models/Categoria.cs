@@ -12,6 +12,7 @@ namespace TesteProva.Livraria.Models
 
         public string Nome { get; set; }
 
+        [Newtonsoft.Json.JsonIgnoreAttribute]
         public ICollection<Livros> Livros { get; set; }
     }
 }
